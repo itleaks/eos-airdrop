@@ -1,0 +1,16 @@
+{
+  "name": "eos-airdrop",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node airdrop",
+    "test": "export EOSFAVOR_CONFIG_NAME=test;node airdrop"
+  },
+  "dependencies": {
+    "ejs": "^2.5.7",
+    "eosjs": "^15.0.3",
+    "moment": "^2.20.1",
+    "nodejs": "0.0.0",
+    "promise-mysql": "^3.1.3"
+  }
+}
