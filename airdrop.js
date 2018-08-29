@@ -23,14 +23,14 @@ function sleep(ms) {
 }
 
 async function getAccounts() {
-	if (config.db) {
-		let sql = ' select name from accounts where ram > 5 and balance > 200 and issued=0 order by id desc;'
-		let accounts = await dbHelper.executeSql(sql);
-		return accounts.map(item => item.name)
-	} else {
-		console.log("top accounts");
-		return topAccounts;
-	}
+    if (config.db) {
+        let sql = ' select name from accounts where ram > 5 and balance > 200 and issued=0 order by id desc;'
+        let accounts = await dbHelper.executeSql(sql);
+        return accounts.map(item => item.name)
+    } else {
+        console.log("top accounts");
+        return topAccounts;
+    }
 }
 
 async function airdrop(memo) {
@@ -70,6 +70,32 @@ async function _airdrop(account, memo) {
                 eos.transfer(config.issuer, account, '0.0001 EOS', memo)
             }
         )
+        // Token transfer sample
+        // Uncomment below to transfer token
+        /*tr = await eos.transaction(
+            {
+                // ...headers,
+                actions: [
+                    {
+                        //contract account
+                        account: 'ethsidechain',
+                        name: 'transfer',
+                        authorization: [{
+                          actor: your_account,
+                          permission: 'active'
+                        }],
+                        data: {
+                          from: from_account,
+                          to: to_account,
+                          quantity: '' + parseInt(amount).toFixed(4) + ' EETH',
+                          memo: account + '提币' + amount + " EETH",
+                        }
+                    }
+                ]
+            }
+            // options -- example: {broadcast: false}
+        )*/
+
         await markDropped(account)
         return false;
     } catch (e) {
